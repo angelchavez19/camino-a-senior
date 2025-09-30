@@ -7,8 +7,21 @@ const githubRepository: string =
 const year = new Date().getFullYear();
 
 const items = computed<NavigationMenuItem[]>(() => [
-  { label: "Articles", to: "/articles" },
-  { label: "Reading Lists", to: "/reading-lists" },
+  {
+    label: "Articles",
+    to: "/articles",
+    icon: "i-lucide-file-text",
+  },
+  {
+    label: "Categories",
+    to: "/categories",
+    icon: "i-lucide-folder",
+  },
+  {
+    label: "Reading Lists",
+    to: "/reading-lists",
+    icon: "i-lucide-bookmark",
+  },
 ]);
 
 defineShortcuts({
@@ -59,14 +72,7 @@ useSeoMeta({
       class="flex flex-col sm:flex-row items-center justify-between gap-4"
     >
       <UText size="sm" class="text-gray-500 dark:text-gray-400">
-        © {{ year }} Camino a Senior. Content is distributed under
-        <NuxtLink
-          to="https://creativecommons.org/licenses/by-sa/4.0/"
-          target="_blank"
-          class="underline hover:text-gray-700 dark:hover:text-gray-200"
-        >
-          CC BY-SA 4.0 </NuxtLink
-        >.
+        © {{ year }} Camino a Senior.
       </UText>
 
       <UButton
