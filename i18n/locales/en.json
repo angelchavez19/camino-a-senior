@@ -1,0 +1,24 @@
+{
+  "navigation": {
+    "articles": "Articles",
+    "categories": "Topics",
+    "reading-lists": "Reading Lists"
+  },
+  "layouts": {
+    "default": {
+      "header": {
+        "github": "Open on GitHub"
+      },
+      "footer": {
+        "contribute": "Contribute on GitHub"
+      }
+    }
+  },
+  "pages": {
+    "index": {
+      "hero": {
+        "description": "Guides, tips, and tutorials to level up your coding skills and grow as a developer (without boring stuff)."
+      }
+    }
+  }
+}

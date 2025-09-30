@@ -1,29 +1,30 @@
 <script setup lang="ts">
 import type { ButtonProps } from "#ui/types";
+const { t } = useI18n();
 
-const links = ref<ButtonProps[]>([
+const links: ButtonProps[] = [
   {
-    label: "Articles",
+    label: t("navigation.articles"),
     to: "/articles",
     icon: "i-lucide-file-text",
   },
   {
-    label: "Categories",
+    label: t("navigation.categories"),
     to: "/categories",
     icon: "i-lucide-folder",
   },
   {
-    label: "Reading Lists",
+    label: t("navigation.reading-lists"),
     to: "/reading-lists",
     icon: "i-lucide-bookmark",
   },
-]);
+];
 </script>
 
 <template>
   <UPageHero
     title="Camino a Senior"
-    description="Guides, tips, and tutorials to improve your programming skills and grow as a developer."
+    :description="$t('pages.index.hero.description')"
     :links="links"
   />
 </template>

@@ -1,28 +1,35 @@
 <script setup lang="ts">
-import type { NavigationMenuItem } from "@nuxt/ui";
+import type { Locale, NavigationMenuItem, SelectItem } from "@nuxt/ui";
 
 const githubRepository: string =
   "https://github.com/angelchavez19/camino-a-senior";
 
 const year = new Date().getFullYear();
 
-const items = computed<NavigationMenuItem[]>(() => [
+const { locale, setLocale, t } = useI18n();
+
+const locales: SelectItem[] = [
+  { label: "English", value: "en" },
+  { label: "Español", value: "es" },
+];
+
+const items: NavigationMenuItem[] = [
   {
-    label: "Articles",
+    label: t("navigation.articles"),
     to: "/articles",
     icon: "i-lucide-file-text",
   },
   {
-    label: "Categories",
+    label: t("navigation.categories"),
     to: "/categories",
     icon: "i-lucide-folder",
   },
   {
-    label: "Reading Lists",
+    label: t("navigation.reading-lists"),
     to: "/reading-lists",
     icon: "i-lucide-bookmark",
   },
-]);
+];
 
 defineShortcuts({
   ".": () => {
@@ -44,9 +51,17 @@ useSeoMeta({
     <UNavigationMenu :items="items" />
 
     <template #right>
+      <USelect
+        v-model="locale"
+        :items="locales"
+        icon="i-heroicons-language"
+        @update:model-value="setLocale(($event as 'en' | 'es') || 'en')"
+        class="hidden sm:flex"
+      />
+
       <UColorModeButton />
 
-      <UTooltip text="Open on GitHub" :kbds="['.']">
+      <UTooltip :text="$t('layouts.default.header.github')" :kbds="['.']">
         <UButton
           color="neutral"
           variant="ghost"
@@ -60,6 +75,14 @@ useSeoMeta({
 
     <template #body>
       <UNavigationMenu :items="items" orientation="vertical" class="-mx-2.5" />
+
+      <USelect
+        v-model="locale"
+        :items="locales"
+        icon="i-heroicons-language"
+        @update:model-value="setLocale(($event as 'en' | 'es') || 'en')"
+        class="mt-4 w-full"
+      />
     </template>
   </UHeader>
 
@@ -71,9 +94,9 @@ useSeoMeta({
     <UContainer
       class="flex flex-col sm:flex-row items-center justify-between gap-4"
     >
-      <UText size="sm" class="text-gray-500 dark:text-gray-400">
+      <p class="text-gray-500 dark:text-gray-400">
         © {{ year }} Camino a Senior.
-      </UText>
+      </p>
 
       <UButton
         variant="ghost"
@@ -82,7 +105,7 @@ useSeoMeta({
         to="https://github.com/your-org/your-repo"
         target="_blank"
       >
-        Contribute on GitHub
+        {{ $t("layouts.default.footer.contribute") }}
       </UButton>
     </UContainer>
   </footer>

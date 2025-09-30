@@ -1,0 +1,24 @@
+{
+  "navigation": {
+    "articles": "Artículos",
+    "categories": "Temas",
+    "reading-lists": "Listas de lectura"
+  },
+  "layouts": {
+    "default": {
+      "header": {
+        "github": "Abrir en GitHub"
+      },
+      "footer": {
+        "contribute": "Contribuye en GitHub"
+      }
+    }
+  },
+  "pages": {
+    "index": {
+      "hero": {
+        "description": "Guías, tips y tutoriales para mejorar tus habilidades de programación y crecer como developer (sin aburrirte en el intento)."
+      }
+    }
+  }
+}
