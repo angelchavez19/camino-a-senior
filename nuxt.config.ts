@@ -12,10 +12,11 @@ export default defineNuxtConfig({
   ],
   i18n: {
     vueI18n: "./i18n.configuration.ts",
-    strategy: "prefix_except_default",
     locales: [
       { code: "en", file: "en.json" },
       { code: "es", file: "es.json" },
     ],
+    defaultLocale: "en",
+    detectBrowserLanguage: false,
   },
 });

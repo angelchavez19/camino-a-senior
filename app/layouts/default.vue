@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Locale, NavigationMenuItem, SelectItem } from "@nuxt/ui";
+import type { SelectItem } from "@nuxt/ui";
 
 const githubRepository: string =
   "https://github.com/angelchavez19/camino-a-senior";
@@ -7,29 +7,34 @@ const githubRepository: string =
 const year = new Date().getFullYear();
 
 const { locale, setLocale, t } = useI18n();
+const localePath = useLocalePath();
 
 const locales: SelectItem[] = [
   { label: "English", value: "en" },
   { label: "Español", value: "es" },
 ];
 
-const items: NavigationMenuItem[] = [
-  {
-    label: t("navigation.articles"),
-    to: "/articles",
-    icon: "i-lucide-file-text",
-  },
-  {
-    label: t("navigation.categories"),
-    to: "/categories",
-    icon: "i-lucide-folder",
-  },
-  {
-    label: t("navigation.reading-lists"),
-    to: "/reading-lists",
-    icon: "i-lucide-bookmark",
-  },
-];
+const items = computed(() => {
+  void locale.value;
+
+  return [
+    {
+      label: t("navigation.articles"),
+      to: localePath("/articles"),
+      icon: "i-lucide-file-text",
+    },
+    {
+      label: t("navigation.categories"),
+      to: localePath("/categories"),
+      icon: "i-lucide-folder",
+    },
+    {
+      label: t("navigation.reading-lists"),
+      to: localePath("/reading-lists"),
+      icon: "i-lucide-bookmark",
+    },
+  ];
+});
 
 defineShortcuts({
   ".": () => {
@@ -43,7 +48,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <UHeader mode="drawer">
+  <UHeader :to="$localePath('/')" mode="drawer">
     <template #title>
       <h1>Camino a Senior</h1>
     </template>
@@ -55,7 +60,7 @@ useSeoMeta({
         v-model="locale"
         :items="locales"
         icon="i-heroicons-language"
-        @update:model-value="setLocale(($event as 'en' | 'es') || 'en')"
+        @update:model-value="setLocale($event as 'en' | 'es')"
         class="hidden sm:flex"
       />
 
