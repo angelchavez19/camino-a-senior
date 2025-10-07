@@ -91,7 +91,7 @@ useSeoMeta({
     </template>
   </UHeader>
 
-  <UMain>
+  <UMain class="flex justify-center px-4">
     <slot></slot>
   </UMain>
 
