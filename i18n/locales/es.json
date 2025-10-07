@@ -19,6 +19,10 @@
       "hero": {
         "description": "Guías, tips y tutoriales para mejorar tus habilidades de programación y crecer como developer (sin aburrirte en el intento)."
       }
+    },
+    "page-not-found": {
+      "title": "Página no encontrada",
+      "code": "Error 404"
     }
   }
 }

@@ -19,6 +19,10 @@
       "hero": {
         "description": "Guides, tips, and tutorials to level up your coding skills and grow as a developer (without boring stuff)."
       }
+    },
+    "page-not-found": {
+      "title": "Page not found",
+      "code": "404 error"
     }
   }
 }
