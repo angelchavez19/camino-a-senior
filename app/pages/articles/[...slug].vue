@@ -5,19 +5,8 @@ const route = useRoute();
 const { locale } = useI18n();
 const post = ref<ContentCollectionItem | null>();
 
-const breadcrumb = computed(() => {
-  return getBreadcrumbItems(route.params.slug, locale.value);
-});
-
-const date = computed(() => {
-  if (!post.value) return undefined;
-
-  return formatDate(post.value.date, locale.value);
-});
-
-onMounted(async () => {
+const loadPost = async () => {
   const slugParam = route.params.slug;
-
   const result = await getOnePostBySlug(slugParam, locale.value);
 
   if (!result) {
@@ -25,6 +14,7 @@ onMounted(async () => {
       title: "Not Found Page",
       description: "Some description",
     });
+    post.value = null;
     return;
   }
 
@@ -34,6 +24,20 @@ onMounted(async () => {
     title: post.value.title,
     description: post.value.description,
   });
+};
+
+onMounted(loadPost);
+
+// 🔁 Re-fetch al cambiar el idioma
+watch(locale, loadPost);
+
+const breadcrumb = computed(() => {
+  return getBreadcrumbItems(route.params.slug, locale.value);
+});
+
+const date = computed(() => {
+  if (!post.value) return undefined;
+  return formatDate(post.value.date, locale.value);
 });
 </script>
 

@@ -15,6 +15,7 @@ export const getBreadcrumbItems = (
   locale: LocaleT
 ): Item[] | undefined => {
   const pre = locale === "en" ? "/articles" : `/${locale}/articles`;
+  const articles = locale === "en" ? "Articles" : "Artículos";
 
   if (!slugParam) return;
 
@@ -22,7 +23,7 @@ export const getBreadcrumbItems = (
 
   return [
     {
-      label: "Articles",
+      label: articles,
       to: pre,
     },
     ...slug.map((it, idx) => {

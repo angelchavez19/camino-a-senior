@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { SelectItem } from "@nuxt/ui";
+import type { LocaleT } from "~/types";
 
 const githubRepository: string =
   "https://github.com/angelchavez19/camino-a-senior";
@@ -57,10 +58,10 @@ useSeoMeta({
 
     <template #right>
       <USelect
-        v-model="locale"
+        :model-value="locale"
         :items="locales"
         icon="i-heroicons-language"
-        @update:model-value="setLocale($event as 'en' | 'es')"
+        @update:model-value="setLocale($event as LocaleT)"
         class="hidden sm:flex"
       />
 

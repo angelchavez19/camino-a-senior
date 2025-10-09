@@ -5,9 +5,11 @@ const stripLocale = (path: string): string => {
   return path.replace(/^\/[a-z]{2}(?:-[A-Z]{2})?\//, "/");
 };
 
-const { data } = await useAsyncData("posts", () => {
-  return getAllInfoPosts(locale.value);
-});
+const { data } = await useAsyncData(
+  "posts",
+  () => getAllInfoPosts(locale.value),
+  { watch: [locale] }
+);
 </script>
 
 <template>
