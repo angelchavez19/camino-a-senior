@@ -7,6 +7,21 @@ const route = useRoute();
 const { locale } = useI18n();
 const home = ref<ContentCollectionItem | null>();
 
+const breadcrumb = computed(() => {
+  const slugParam = route.params.slug;
+  const slug = Array.isArray(slugParam)
+    ? ["articles", ...slugParam]
+    : ["articles", slugParam || ""];
+
+  return slug.map((it, idx) => {
+    const to = "/" + slug.slice(0, idx + 1).join("/");
+    return {
+      label: it.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
+      to,
+    };
+  });
+});
+
 const date = computed(() => {
   if (!home.value) return undefined;
 
@@ -49,7 +64,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <UPage v-if="home" class="w-full max-w-[1400px]">
+  <UPage v-if="home" class="w-full max-w-[1400px] py-8">
+    <UBreadcrumb :items="breadcrumb" />
+
     <UPageHeader :title="home.title" :headline="date" />
 
     <UPageBody>
