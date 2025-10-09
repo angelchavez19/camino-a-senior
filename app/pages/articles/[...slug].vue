@@ -1,42 +1,26 @@
 <script setup lang="ts">
 import type { ContentCollectionItem } from "@nuxt/content";
-import { format } from "date-fns";
-import { enUS, es } from "date-fns/locale";
 
 const route = useRoute();
 const { locale } = useI18n();
-const home = ref<ContentCollectionItem | null>();
+const post = ref<ContentCollectionItem | null>();
 
 const breadcrumb = computed(() => {
-  const slugParam = route.params.slug;
-  const slug = Array.isArray(slugParam)
-    ? ["articles", ...slugParam]
-    : ["articles", slugParam || ""];
-
-  return slug.map((it, idx) => {
-    const to = "/" + slug.slice(0, idx + 1).join("/");
-    return {
-      label: it.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
-      to,
-    };
-  });
+  return getBreadcrumbItems(route.params.slug, locale.value);
 });
 
 const date = computed(() => {
-  if (!home.value) return undefined;
+  if (!post.value) return undefined;
 
-  if (locale.value === "es")
-    return format(home.value.date, "dd 'de' MMMM, yyyy", { locale: es });
-
-  return format(home.value.date, "MMM dd, yyyy", { locale: enUS });
+  return formatDate(post.value.date, locale.value);
 });
 
 onMounted(async () => {
   const slugParam = route.params.slug;
 
-  const slug = Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
+  const result = await getOnePostBySlug(slugParam, locale.value);
 
-  if (!slug) {
+  if (!result) {
     useSeoMeta({
       title: "Not Found Page",
       description: "Some description",
@@ -44,35 +28,25 @@ onMounted(async () => {
     return;
   }
 
-  home.value = await queryCollection("content")
-    .path(`/${locale.value}/${slug}`)
-    .first();
-
-  if (home.value === null) {
-    useSeoMeta({
-      title: "Not Found Page",
-      description: "Some description",
-    });
-    return;
-  }
+  post.value = result;
 
   useSeoMeta({
-    title: home.value.title,
-    description: home.value.description,
+    title: post.value.title,
+    description: post.value.description,
   });
 });
 </script>
 
 <template>
-  <UPage v-if="home" class="w-full max-w-[1400px] py-8">
+  <UPage v-if="post" class="w-full max-w-[1400px] py-8">
     <UBreadcrumb :items="breadcrumb" />
 
-    <UPageHeader :title="home.title" :headline="date" />
+    <UPageHeader :title="post.title" :headline="date" />
 
     <UPageBody>
-      <ContentRenderer :value="home.body" />
+      <ContentRenderer :value="post.body" />
     </UPageBody>
   </UPage>
 
-  <PageNotFound v-else-if="home === null" />
+  <PageNotFound v-else-if="post === null" />
 </template>

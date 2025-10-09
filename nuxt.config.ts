@@ -11,7 +11,8 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
   ],
   i18n: {
-    vueI18n: "./i18n.configuration.ts",
+    // NOTE: If change locales, also update the ~/types/i18n.ts file
+    vueI18n: "./i18n.config.ts",
     locales: [
       { code: "en", file: "en.json" },
       { code: "es", file: "es.json" },

@@ -6,12 +6,7 @@ const stripLocale = (path: string): string => {
 };
 
 const { data } = await useAsyncData("posts", () => {
-  return queryCollection("content")
-    .where("locale", "=", locale.value)
-    .where("draft", "=", false)
-    .select("id", "title", "date", "description", "path")
-    .order("date", "DESC")
-    .all();
+  return getAllInfoPosts(locale.value);
 });
 </script>
 
