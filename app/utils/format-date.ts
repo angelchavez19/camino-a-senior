@@ -11,12 +11,12 @@ type OptionsMap = Record<LocaleT, DateFormatOption>;
 
 const options: OptionsMap = {
   en: {
-    formatString: "dd 'de' MMMM, yyyy",
-    locale: es,
-  },
-  es: {
     formatString: "MMM dd, yyyy",
     locale: enUS,
+  },
+  es: {
+    formatString: "dd 'de' MMMM, yyyy",
+    locale: es,
   },
 };
 

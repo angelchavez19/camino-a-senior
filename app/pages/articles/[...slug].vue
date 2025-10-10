@@ -48,7 +48,10 @@ const date = computed(() => {
     <UPageHeader :title="post.title" :headline="date" />
 
     <UPageBody>
-      <ContentRenderer :value="post.body" />
+      <ContentRenderer
+        :value="post.body"
+        class="prose dark:prose-invert max-w-none"
+      />
     </UPageBody>
   </UPage>
 

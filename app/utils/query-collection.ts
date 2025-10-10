@@ -23,7 +23,7 @@ export const getAllInfoPosts = (locale: LocaleT) => {
   return queryCollection("content")
     .where("locale", "=", locale)
     .where("draft", "=", false)
-    .select("id", "title", "date", "description", "path")
+    .select("id", "title", "date", "description", "path", "image")
     .order("date", "DESC")
     .all();
 };

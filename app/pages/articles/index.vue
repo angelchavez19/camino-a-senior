@@ -20,8 +20,9 @@ const { data } = await useAsyncData(
         :key="post.id"
         :title="post.title"
         :description="post.description"
-        :date="post.date"
+        :date="formatDate(post.date, locale)"
         :to="$localePath(`/articles${stripLocale(post.path)}`)"
+        :image="post.image"
         orientation="vertical"
         class="px-4 flex-1 w-full"
       />
