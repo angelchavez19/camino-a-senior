@@ -28,7 +28,6 @@ const loadPost = async () => {
 
 onMounted(loadPost);
 
-// 🔁 Re-fetch al cambiar el idioma
 watch(locale, loadPost);
 
 const breadcrumb = computed(() => {
@@ -46,6 +45,10 @@ const date = computed(() => {
     <UBreadcrumb :items="breadcrumb" />
 
     <UPageHeader :title="post.title" :headline="date" />
+
+    <template v-if="post?.body?.toc?.links?.length" #right>
+      <UContentToc :links="post.body.toc.links" />
+    </template>
 
     <UPageBody>
       <ContentRenderer
